@@ -1,0 +1,143 @@
+<html>
+  <head>
+    <title>User Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="pragma" content="no-cache"> 
+    <meta http-equiv="expires" content="-1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script type="text/javascript" src="controllers/userController.js"></script>
+    <script src="https://use.fontawesome.com/b069d77fbd.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Slabo+27px" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/circle.css" >
+    <link rel="stylesheet" type="text/css" href="css/userStyle.css">
+  </head>
+  <body ng-app="user" ng-controller="userController">
+    <div class="container-fluid user_header">
+      <h3><strong>Welcome, User</strong></h3>
+      <div class="float_right">
+        <h6 class="float_right">Click Log out before exit</h6>
+        <h5>Log out&nbsp; <span ng-click="logout()" class="glyphicon glyphicon-log-out"></span></h5>
+      </div>
+    </div>
+    <div class="container main_body">
+      <div class="col-sm-3 left_panel">
+        <iframe style="overflow:hidden;border:0;margin:0;padding:0;width:120px;height:120px;" src="http://www.clocktag.com/html5/t11.html"></iframe>
+        <iframe style="overflow:hidden;border:0;margin:0;padding:0;width:175px;height:80px;" src="http://www.clocktag.com/html5/d171black1.html"></iframe>
+        <div class="coworkers">
+          <h3><strong>Know your Co_workers</strong></h3>
+          <div ng-repeat="x in coworkers | limitTo : 7">
+            <h5>{{x.name}}</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <h3><strong>My Details</strong></h3>
+        <form name="EmployeeDisplayForm">
+          <fieldset disabled id="fieldset">
+            <div class="form-group col-sm-12">
+              <label>Name:</label>
+              <input type="text" class="form-control" name="name" ng-model="formdata.name" placeholder="Enter name">
+            </div>
+            <div class="form-group col-sm-6">
+              <label>Username:</label>
+              <input type="text" class="form-control" name="username" ng-model="formdata.username" placeholder="Enter username">
+            </div>
+            <div class="form-group col-sm-6">
+              <label>Password:</label>
+              <input type="password" class="form-control" name="password" ng-model="formdata.password" placeholder="Enter password">
+            </div>
+            <div class="form-group col-sm-6">
+              <label>Email:&nbsp;&nbsp;<i><span ng-show="EmployeeDisplayForm.email.$error.email">Email is invalid</span></i></label>
+              <input type="email" class="form-control" name="email" ng-model="formdata.email" placeholder="Enter email">
+            </div>
+            <div class="form-group col-sm-6">
+              <label>Phone:&nbsp;&nbsp;<i><span ng-show="EmployeeDisplayForm.phone.$error.minlength">Number is too short</span></i></label>
+              <input type="text" class="form-control" name="phone" ng-model="formdata.phone" ng-minlength="10"  placeholder="Enter phone">
+            </div>
+            <div class="form-group col-sm-12">
+              <label>Address:</label>
+              <input type="text" class="form-control" name="address" ng-model="formdata.address" placeholder="Enter address">
+            </div>
+            <div class="form-group col-sm-6">
+              <label>Skill 1:</label>
+              <input type="text" class="form-control" name="skill1" ng-model="formdata.skill1" placeholder="Enter Skills">
+            </div>
+            <div class="form-group col-sm-6">
+              <label>Skill 2:</label>
+              <input type="text" class="form-control" name="skill2" ng-model="formdata.skill2" placeholder="Enter Skills">
+            </div>
+          </fieldset>
+          <div class="form-group col-sm-12">
+            <button type="button" id="editbutton" class="btn btn-danger btn-md" data-toggle="modal" data-target="#updateEmployee"">Edit</button>
+            <div class="modal fade" id="updateEmployee" role="dialog">
+              <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Confirm Update</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>Are you sure to edit your details ?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger"  ng-click="changeFieldset()"  data-dismiss="modal">Yes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="button" disabled id="updatebutton" ng-click="updateEmployee()" class="btn btn-primary btn-md">&nbsp;Update</button>&nbsp;&nbsp;{{result}}
+          </div>
+        </form>
+        <form id="uploadForm"
+          enctype="multipart/form-data"
+          action="/api/photo"
+          method="post">
+      <input type="file" name="userPhoto" />
+      <input type="submit" value="Upload Image" name="submit">
+    </form>
+      </div>
+      <div class="col-sm-3">
+        <div class="profile_complete">
+          <h3><strong>Profile Completion</strong></h3>
+          <div class="c100 p25">
+            <span>{{percentageProgress}}%</span>
+            <div class="slice">
+              <div class="bar"></div>
+              <div class="fill"></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3><strong>Notifications</strong></h3>
+          <table class="table table-hover">
+            <tr>
+              <td class="blink"><i>Welcome to our company</i></td>
+            </tr>
+            <tr>
+              <td class="blink"><i>Please complete the profile</i></td>
+            </tr>
+            <tr>
+              <td class="blink"><i>{{formdata.message}}</i></td>
+            </tr>
+          </table>
+        </div>
+        <div class="searchbox">
+          <h4><strong>Search Employess</strong></h4>
+          <div class="form-group has-feedback">
+            <input type="text" class="form-control" ng-model="employeename" placeholder="Type Employee Name" ng-minlength="1"/>
+            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+          </div>
+          <table ng-show="employeename">
+            <tr ng-repeat="x in workers | filter : {'name' : employeename} | limitTo : 5">
+              <td>{{ x.name }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="footer">Created and Designed by : Kishor U, Trainee, Qburst</div>
+  </body>
+</html>

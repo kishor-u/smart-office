@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Employee Management</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script type="text/javascript" src="controllers/frontpageController.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/frontpage.css">
+  </head>
+  <body ng-app="frontpage" ng-controller="frontpageCtrl">
+    <div class="container-fluid">
+      <h2><strong>Employee Management System</strong></h2>
+    </div>
+    <div class="container" >
+      <div class="col-sm-offset-5">
+        <div class="col-sm-5">
+          <h4><strong>Member Login</strong></h4>
+          <form>
+            <div class="form-group">
+              <label>Username</label>
+              <input type="text" class="form-control" ng-model="form.username" placeholder="username">
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" class="form-control" ng-model="form.password" placeholder="password">
+            </div>
+            <button type="submit" ng-click="loginFunction(form)" class="btn btn-info">Submit</button><br/><br/>{{result}}
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="footer">Created and Designed by : Kishor U, Trainee, Qburst</div>
+  </body>
+</html>

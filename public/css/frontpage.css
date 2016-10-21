@@ -1,0 +1,31 @@
+body {
+	background:url(../images/back.jpg) no-repeat center fixed;
+    background-size: cover;
+}
+.container-fluid {
+	background:url(../images/banner.jpg) center;
+    background-size: cover;
+    padding: 25px;
+    box-shadow: 5px 5px 6px #888888;
+}
+.footer {
+	position: absolute;
+	font-family: 'Open Sans Condensed', sans-serif;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 1rem;
+	background-color: #333;
+	text-align: center;
+	color:white;
+}
+.col-sm-5 {
+	margin-top: 100px;
+  	border:solid 1px #777;
+	border-radius: 5px;
+	text-align: center;
+}
+form {
+    padding-bottom: 7px;
+}
+

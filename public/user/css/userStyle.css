@@ -1,0 +1,96 @@
+body {
+    background:url(../images/back.jpg) no-repeat center fixed;
+	background-size: cover;
+}
+h5 a {
+    
+    text-decoration: none !important;
+}
+.user_header {
+    background: url(../images/head.jpg);
+    font-family: 'Roboto Slab', serif;
+    box-shadow: 5px 5px 6px #888888;
+}
+.user_header h3 {
+    float: left;
+}
+.float_right {
+    float: right;
+}
+.main_body {
+    margin-top: 20px;
+    font-family: 'Roboto Slab', serif;
+    font-size: 12px;
+
+}
+.footer {
+    position: fixed;
+    font-family: 'Open Sans Condensed', sans-serif;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #eeeeee;
+    text-align: center;
+    color: #111111;
+    box-shadow: inset 0 20px 20px -20px rgba(0, 0, 0, 0.8);
+}
+h5 span {
+    cursor: pointer;
+}
+
+.blink {
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+}
+@-webkit-keyframes blinker {
+    0% {
+        opacity: 1.0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1.0;
+    }
+}
+td {
+color: #444444;
+}
+
+.left_panel {
+    margin-top: 15px;
+    text-align: center;
+}
+.coworkers {
+    margin-top: 15px;
+}
+.coworkers h3 {
+    margin-bottom: 20px;
+}
+.searchbox {
+    margin-top: 15px;
+}
+.searchbox h4 {
+    margin-bottom: 10px;
+}
+.searchbox table {
+    margin-left: 50px;
+}
+.profile_complete h3 {
+    margin-top: 15px;
+}
+.c100 {
+    margin-left: 12%;
+    margin-bottom: 20px;
+}
+fieldset span {
+    color : #9F2A0D;
+}
+@media screen and (max-width: 760px) {
+    .searchbox {
+        padding-bottom:50px;
+    }   
+}

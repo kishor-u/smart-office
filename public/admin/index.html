@@ -1,0 +1,162 @@
+<html>
+  <head>
+    <title>Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="pragma" content="no-cache"> 
+    <meta http-equiv="expires" content="-1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script type="text/javascript" src="controllers/adminController.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js"></script>
+    <script type="text/javascript" src="js/ui.js"></script>
+    <script src="https://use.fontawesome.com/b069d77fbd.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Slabo+27px" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/adminstyle.css">
+  </head>
+  <body ng-app="admin" ng-controller="adminController">
+    <div class="container-fluid admin_header">
+      <h3><strong>Welcome, Administrator</strong></h3>
+      <div class="float_right">
+        <h5 class="float_right pointer" data-toggle="modal" data-target="#changePassword">Change Password</h5>
+        <div class="modal fade" id="changePassword" role="dialog">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirm password change</h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label>Enter new password:</label>
+                  <input type="password" ng-model="form.newpassword"class="form-control" />
+                  <label for="pwd">Retype new password:</label>
+                  <input type="password" class="form-control" ng-model="form.newpasswordconfirm" id="pwd"/>
+                  <span ng-hide="(form.newpassword === form.newpasswordconfirm)">Passwords not match</span>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-info" ng-click="changeAdminPassword()" data-dismiss="modal">Change</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h5><strong>Notifications(2)&nbsp;&nbsp;</strong> Log out&nbsp;<span ng-click="logoutAdmin()" class="glyphicon glyphicon-log-out"></span></h5>
+      </div>
+    </div>
+    <div class="container main_body">
+      <div class="col-sm-3 employee_add">
+        <h3>Add Employees</h3>
+        <form name="addEmployeeForm">
+          <div class="form-group">
+            <label>Name:</label>
+            <input type="text" class="form-control" name="name" ng-model="formdata.name" placeholder="Enter name">
+          </div>
+          <div class="form-group">
+            <label>Department:</label>
+            <select class="form-control" placeholder="Select Department" name="department" ng-model="formdata.department">
+              <option value="" disabled selected hidden>Select the department</option>
+              <option>Devoloper</option>
+              <option>Designer</option>
+              <option>Tester</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Username:</label>
+            <input type="text" class="form-control" name="username" ng-model="formdata.username" placeholder="Enter username">
+          </div>
+          <div class="form-group">
+            <label>Password:</label>
+            <input type="password" class="form-control" name="password" ng-model="formdata.password" placeholder="Enter password">
+          </div>
+          <button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#addEmployee">Submit</button>
+          <!-- Modal -->
+          <div class="modal fade" id="addEmployee" role="dialog">
+            <div class="modal-dialog modal-md">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Confirm Submission</h4>
+                </div>
+                <div class="modal-body">
+                  <p>Are you sure to add this employee with username <i>{{formdata.username}}</i> and  password <i>{{formdata.password}}</i> ?</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-info"  ng-click="createEmployee()" data-dismiss="modal">Add</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        {{result}}
+      </div>
+      <div class="col-sm-6 employee_display">
+        <h3>Employee List</h3>
+        <table class="table table-hover">
+          <thead>
+            <th></th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Admin</th>
+            <th>Delete</th>
+          </thead>
+          <tr ng-repeat="x in filteredemployeelist">
+            <td><img src="../uploads/{{x._id}}" class="img-circle" width="30" onerror="this.src='../uploads/user.png'" height="30"/></td>
+            <td >{{x.name}}</td>
+            <td data-id="status">{{x.status}}</td>
+            <td data-toggle="modal" data-target="#makeadmin" ng-click="saveId(x._id)"><i class="fa fa-hand-o-left" aria-hidden="true"></i></td>
+            <td data-toggle="modal" data-target="#deleteEmployee" ng-click="saveId(x._id)"><i class="fa fa-trash" aria-hidden="true"></i></td>
+          </tr>
+        </table>
+        <div class="modal fade" id="deleteEmployee" role="dialog">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirm Submission</h4>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure to delete this employee ?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-warning" ng-click="notifyEmployee()" data-dismiss="modal">Notify once ?</button>
+                <button type="button" class="btn btn-danger" ng-click="deleteEmployee()" data-dismiss="modal">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="makeadmin" role="dialog">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirm Submission</h4>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure to make this employee as admin ?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="makeAdmin()" data-dismiss="modal">Make admin</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="center" >
+          <ul uib-pagination total-items="employeelist.length" max-size="maxSize" boundary-links="true" ng-model="currentPage" items-per-page="numPerPage"></ul>
+        </div>
+      </div>
+      <div class="col-sm-3 dashboard">
+        <div id="chartContainer" class="chart" style="height: 250px; width: 100%;"></div>
+        <div  class="center"><i>Updated till your recent login..!!</i></div>
+        <div class="newemployees">
+          <h4>New Employees</h4>
+          <div ng-repeat="x in employeelist | orderBy:'-_id' | limitTo : 5">
+            <h6>{{x.name}}&nbsp;-&nbsp;{{x.department}}</h6>
+          </div>
+        </div>
+      </div>
+      <div class="footer">Created and Designed by : Kishor U, Trainee, Qburst</div>
+    </div>
+  </body>
+</html>
