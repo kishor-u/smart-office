@@ -5,8 +5,8 @@ var localStorage = require('localStorage');
 
 function createUser(req, res, next) {
   employeeModel.create({
-    username: 'kd',
-    name: 'Krishandev',
+    username: 'user',
+    name: 'user',
     password: md5('123'),
     department: 'Manager',
     status: 'admin'
