@@ -10,4 +10,4 @@ Open the app listening to port 8009
 
 Hit '/sample' to create the admin with username 'user and password '123'
 
-Try logging in with these credentials and new data.
+Try logging in with these credentials and add your data.
